@@ -11,6 +11,22 @@
 			"item": [
 				{
 					"name": "Cadastrar usuário",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 400 \", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Cadastrar usuário\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Este email já está sendo usado\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -40,11 +56,39 @@
 				},
 				{
 					"name": "Listar usuários",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Quando usuario não está na base\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Usuário não encontrado\");\r",
+									"});\r",
+									"pm.test(\"Status code é 400  \", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:3000/usuarios/",
+							"raw": "http://localhost:3000/usuarios/X85oGfReYlRyevMY",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -52,7 +96,7 @@
 							"port": "3000",
 							"path": [
 								"usuarios",
-								""
+								"X85oGfReYlRyevMY"
 							]
 						}
 					},
@@ -178,9 +222,34 @@
 				},
 				{
 					"name": "Usuário não encontrado",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:3000/usuarios/0uxuPY0cbmQhpEz1",
 							"protocol": "http",
@@ -198,6 +267,22 @@
 				},
 				{
 					"name": "Usuário já cadastrado",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Usuário Cadastrado\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Este email já está sendo usado\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
